@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack'
 import { Home } from '../screens/home/home'
+import { Login } from '../screens/login/login'
 import { NavigationContainer } from '@react-navigation/native';
 
 export const RouteIdentifiers = {
@@ -9,6 +10,7 @@ export const RouteIdentifiers = {
     secondStack: { name: 'secondStack', key: 'secondStackKey' },
     
     //Screens
+    login: { name: 'login' },
     cameraPermissions: { name: 'cameraPermission' },
     notificationPermissions: { name: 'notificationPermissions' },
     locationPermissions: { name: 'locationPermissions' }
@@ -20,10 +22,10 @@ const SecondStack = createStackNavigator();
 const AppStack = () => {
     return (
       <HomeStack.Navigator
-              initialRouteName={RouteIdentifiers.home.name}
+              initialRouteName={RouteIdentifiers.login.name}
               headerMode={"none"}
             >
-        <HomeStack.Screen name={RouteIdentifiers.home.name} component={Home}/>
+        <HomeStack.Screen name={RouteIdentifiers.login.name} component={Login}/>
       </HomeStack.Navigator>
     );
   };
