@@ -1,29 +1,36 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Platform, StatusBar, Dimensions, KeyBoardAvoidingView, Input, StyleSheet, TextInput, Button } from "react-native";
 import DeviceInfo from "react-native-device-info"
+import { useNavigation } from "@react-navigation/native";
 import { Formik } from 'formik'
 
 const hasNotch = DeviceInfo.hasNotch()
 const heigthScreen = Dimensions.get('window').height
 import * as yup from 'yup'
+import { Routes } from "../../navigator/routes";
 
 
-const Login = () => {
+const Login = ({ navigation }) => {
 
     const [ notch, setNotch ] = useState(false)
     const [ notchHeight, setNotchHeigth ] = useState(0)
 
     const loginValidationSchema = yup.object().shape({
         email: yup
-          .string()
-          .email("Please enter valid email")
-          .required('Email Address is Required'),
+          .string(),
+         
         password: yup
           .string()
-          .min(8, ({ min }) => `Password must be at least ${min} characters`)
-          .required('Password is required'),
+          
       })
-
+    /*
+     .email("Please enter valid email")
+          .required('Email Address is Required'),
+    */
+   /*
+   .min(8, ({ min }) => `Password must be at least ${min} characters`)
+          .required('Password is required'),
+   */
       
   
     useEffect(() => {
@@ -45,11 +52,14 @@ const Login = () => {
       
           
     return ( 
-        <View style={{ flex: 1, marginTop: notch ? notchHeight : 0 }}>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: notch ? notchHeight : 0 }}>
         <Formik
         validationSchema={loginValidationSchema}
         initialValues={{ email: '', password: '' }}
-        onSubmit={values => console.log(values)}
+        onSubmit={values => {
+          console.log("Navigate")
+          navigation.navigate(Routes.home.name)
+        }}
       >
         {({
           handleChange,
@@ -111,7 +121,7 @@ const styles = StyleSheet.create({
     },
     textInput: {
       height: 40,
-      width: '100%',
+      width: '90%',
       margin: 10,
       backgroundColor: 'white',
       borderColor: 'gray',
