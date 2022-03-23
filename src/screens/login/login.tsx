@@ -7,7 +7,7 @@ import { Formik } from 'formik'
 const hasNotch = DeviceInfo.hasNotch()
 const heigthScreen = Dimensions.get('window').height
 import * as yup from 'yup'
-import { Routes } from "../../navigator/routes";
+import { Routes } from "../../navigator/StackNavigator";
 
 
 const Login = ({ navigation }) => {

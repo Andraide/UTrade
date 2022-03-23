@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack'
-import { Home } from '../screens/home/home'
+import { NestedHome } from './Nesting';
 import { Login } from '../screens/login/login'
 import { SideMenu } from '../components/SideMenu';
 import { NavigationContainer } from '@react-navigation/native';
@@ -19,7 +19,7 @@ export const Routes = {
 };
 
 const HomeStack = createStackNavigator();
-const SecondStack = createStackNavigator();
+const LoginStack = createStackNavigator();
 
 const AppStack = () => {
     return (
@@ -28,36 +28,28 @@ const AppStack = () => {
               headerMode={"none"}
             >
         <HomeStack.Group>
-          <HomeStack.Screen name={Routes.home.name} component={Home}/>
           <HomeStack.Screen name={Routes.login.name} component={Login}/>
         </HomeStack.Group>
-        <HomeStack.Group screenOptions={{ presentation: 'modal' }}>
-          <HomeStack.Screen name={Routes.menu.name} component={SideMenu}/>
+        <HomeStack.Group>
+          <HomeStack.Screen name={Routes.home.name} component={NestedHome}/>
         </HomeStack.Group>
       </HomeStack.Navigator>
     );
   };
   
-  /*
 const AuthStack = () => {
-    return (
-            <SecondStack.Navigator
-              initialRouteName={Routes.cameraPermissions.name}
-              headerMode={"none"}
-            >
-              <SecondStack.Screen name={Routes.cameraPermissions.name} component={CameraPermission}/>
-              <SecondStack.Screen name={Routes.notificationPermissions.name} component={NotificationPermissions}/>
-              <SecondStack.Screen name={Routes.locationPermissions.name} component={LocationPermissions}/>
-            </SecondStack.Navigator>
-    );
-  };
-  */
-const Navigator = () => {
-    return (
-        <NavigationContainer>
-            <AppStack />
-        </NavigationContainer>
-    )
-}
+  return (
+    <LoginStack.Navigator
+            initialRouteName={Routes.login.name}
+            headerMode={"none"}
+          >
+      <LoginStack.Group>
+        <LoginStack.Screen name={Routes.login.name} component={Login}/>
+      </LoginStack.Group>
+    </LoginStack.Navigator>
+  );
+};
 
-export { Navigator } 
+
+
+export { AppStack, AuthStack } 

@@ -5,7 +5,7 @@
  * @format
  * @flow strict-local
  */
-
+import 'react-native-gesture-handler'
 import React from 'react';
 import type {Node} from 'react';
 import {
@@ -26,7 +26,10 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import { Navigator } from './src/navigator/routes';
+import { NavigationContainer } from '@react-navigation/native'
+
+import DrawerNavigator from './src/navigator/DrawerNavigator';
+import { AppStack } from './src/navigator/StackNavigator';
 
 const Section = ({children, title}): Node => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -62,7 +65,9 @@ const App: () => Node = () => {
   };
 
   return (
-    <Navigator />  
+    <NavigationContainer>
+      <AppStack />
+    </NavigationContainer>
   );
 };
 
