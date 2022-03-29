@@ -8,7 +8,7 @@ import { SideMenu } from "../../components/SideMenu"
 const hasNotch = DeviceInfo.hasNotch()
 const heigthScreen = Dimensions.get('window').height
 
-const Home = () => {
+const Home = ({ navigation }) => {
 
     const [ notch, setNotch ] = useState(false)
     const [ notchHeight, setNotchHeigth ] = useState(0)
@@ -27,6 +27,7 @@ const Home = () => {
             setNotchHeigth(StatusBar.currentHeight)
         }
 
+
         //console.log("Status bar", StatusBar.currentHeight, heigthScreen)
     })
 
@@ -36,6 +37,7 @@ const Home = () => {
                     <View style={{ flex: 0.05 }}></View>
                     <View style={{ flex: 0.2, alignItems:'flex-start', justifyContent: 'center' }}>
                         <TouchableOpacity onPress={() => { 
+                            navigation.openDrawer()
                             setModal(!modal) 
                             console.log(modal)
                             }}>
