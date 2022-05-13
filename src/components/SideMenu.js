@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Platform, StatusBar, Dimensions, Image } from "react-native";
+import { View, Text, Platform, StatusBar, Dimensions, Image, Button } from "react-native";
 import DeviceInfo from "react-native-device-info"
+import { Routes } from "../navigator/StackNavigator"
 const hasNotch = DeviceInfo.hasNotch()
 const heigthScreen = Dimensions.get('window').height
 const widthScreen = Dimensions.get('window').width
 
 
-const SideMenu = () => {
+const SideMenu = ({ navigation }) => {
 
     const [ notch, setNotch ] = useState(false)
     const [ notchHeight, setNotchHeigth ] = useState(0)
@@ -30,6 +31,7 @@ const SideMenu = () => {
     return (
             <View style={{ backgroundColor: 'blue', flex: 1, width: widthScreen/2, height: heigthScreen, marginTop: notch ? notchHeight : 0 }}>
                 <Text>Modal</Text>
+                <Button title="Publish" onPress={() => {navigation.navigate(Routes.publish.name)}}></Button>
             </View>
     )
 }

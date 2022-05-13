@@ -2,6 +2,7 @@ import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack'
 import { NestedHome } from './Nesting';
 import { Login } from '../screens/login/login'
+import { Publish } from '../screens/publish/publish'
 import { SideMenu } from '../components/SideMenu';
 import { NavigationContainer } from '@react-navigation/native';
 
@@ -15,7 +16,8 @@ export const Routes = {
     login: { name: 'login' },
     cameraPermissions: { name: 'cameraPermission' },
     notificationPermissions: { name: 'notificationPermissions' },
-    locationPermissions: { name: 'locationPermissions' }
+    locationPermissions: { name: 'locationPermissions' },
+    publish: { name: 'publish' }
 };
 
 const HomeStack = createStackNavigator();
@@ -32,6 +34,9 @@ const AppStack = () => {
         </HomeStack.Group>
         <HomeStack.Group>
           <HomeStack.Screen name={Routes.home.name} component={NestedHome}/>
+        </HomeStack.Group>
+        <HomeStack.Group>
+          <HomeStack.Screen name={Routes.publish.name} component={Publish}/>
         </HomeStack.Group>
       </HomeStack.Navigator>
     );
