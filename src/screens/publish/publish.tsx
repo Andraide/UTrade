@@ -1,133 +1,100 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, Platform, StatusBar, Dimensions, KeyBoardAvoidingView, Input, StyleSheet, TextInput, Button } from "react-native";
-import DeviceInfo from "react-native-device-info"
-import { useNavigation } from "@react-navigation/native";
-import { Formik } from 'formik'
+import React, { useEffect } from 'react';
+import { View, Image, Button, Platform } from 'react-native';
+import { launchImageLibrary } from 'react-native-image-picker';
+//import { useEffect } from 'react/cjs/react.production.min';
+import {checkMultiple, requestMultiple, PERMISSIONS} from 'react-native-permissions';
+import { checkResult } from '../../helpers/checks';
 
-const hasNotch = DeviceInfo.hasNotch()
-const heigthScreen = Dimensions.get('window').height
-import * as yup from 'yup'
-import { Routes } from "../../navigator/StackNavigator";
+const SERVER_URL = 'http://localhost:3000';
+
+const createFormData = (photo, body = {}) => {
+  const data = new FormData();
+
+  data.append('photo', {
+    name: photo.fileName,
+    type: photo.type,
+    uri: Platform.OS === 'ios' ? photo.uri.replace('file://', '') : photo.uri,
+  });
+
+  Object.keys(body).forEach((key) => {
+    data.append(key, body[key]);
+  });
+
+  return data;
+};
+
+const Publish = () => {
+  const [photo, setPhoto] = React.useState(null);
 
 
-const Publish = ({ navigation }) => {
-
-    const [ notch, setNotch ] = useState(false)
-    const [ notchHeight, setNotchHeigth ] = useState(0)
-
-    const loginValidationSchema = yup.object().shape({
-        email: yup
-          .string(),
-         
-        password: yup
-          .string()
-          
-      })
-    /*
-     .email("Please enter valid email")
-          .required('Email Address is Required'),
-    */
-   /*
-   .min(8, ({ min }) => `Password must be at least ${min} characters`)
-          .required('Password is required'),
-   */
-      
-  
-    useEffect(() => {
-        
-        if(Platform.OS == 'ios' && hasNotch)
-        {
-            setNotch(true)
-            setNotchHeigth(heigthScreen/20)
-        }
-        else if(hasNotch)
-        {
-            setNotch(true)
-            setNotchHeigth(StatusBar.currentHeight)
-        }
-
-        console.log("Status bar", StatusBar.currentHeight, heigthScreen)
+  useEffect(() => {
+    checkMultiple([PERMISSIONS.IOS.CAMERA, PERMISSIONS.IOS.MEDIA_LIBRARY]).then((statuses) => {
+      console.log('Camera', statuses[PERMISSIONS.IOS.CAMERA]);
+      console.log('FaceID', statuses[PERMISSIONS.IOS.MEDIA_LIBRARY]);
+      if(checkResult(statuses[PERMISSIONS.IOS.CAMERA]) && checkResult(statuses[PERMISSIONS.IOS.MEDIA_LIBRARY]))
+      {
+        console.log("Entering", checkResult(statuses[PERMISSIONS.IOS.CAMERA]))
+      }
+      else
+      {
+        requestMultiple([PERMISSIONS.IOS.CAMERA, PERMISSIONS.IOS.MEDIA_LIBRARY]).then((statuses) => {
+          console.log('Camera', statuses[PERMISSIONS.IOS.CAMERA]);
+          console.log('FaceID', statuses[PERMISSIONS.IOS.FACE_ID]);
+        })
+      }
     })
-  
-      
-          
-    return ( 
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: notch ? notchHeight : 0 }}>
-        <Formik
-        validationSchema={loginValidationSchema}
-        initialValues={{ email: '', password: '' }}
-        onSubmit={values => {
-          console.log("Navigate")
-          navigation.navigate(Routes.home.name)
-        }}
-      >
-        {({
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          values,
-          errors,
-          isValid,
-        }) => (
-          <>
-            <TextInput
-              name="email"
-              placeholder="Email Address"
-              style={styles.textInput}
-              onChangeText={handleChange('email')}
-              onBlur={handleBlur('email')}
-              value={values.email}
-              keyboardType="email-address"
-            />
-            {errors.email &&
-              <Text style={{ fontSize: 10, color: 'red', textAlign: 'center' }}>{errors.email}</Text>
-            }
-            <TextInput
-              name="password"
-              placeholder="Password"
-              style={styles.textInput}
-              onChangeText={handleChange('password')}
-              onBlur={handleBlur('password')}
-              value={values.password}
-              secureTextEntry
-            />
-            {errors.password &&
-              <Text style={{ fontSize: 10, color: 'red', textAlign: 'center' }}>{errors.password}</Text>
-            }
-            <Button
-              onPress={handleSubmit}
-              title="LOGIN"
-              disabled={!isValid}
-            />
-          </>
-        )}
-      </Formik>
-      </View>
-    
-    )
-}
-
-
-
-const styles = StyleSheet.create({
-
-    loginContainer: {
-      width: '80%',
-      alignItems: 'center',
-      backgroundColor: 'white',
-      padding: 10,
-      elevation: 10,
-      backgroundColor: '#e6e6e6'
-    },
-    textInput: {
-      height: 40,
-      width: '90%',
-      margin: 10,
-      backgroundColor: 'white',
-      borderColor: 'gray',
-      borderWidth: StyleSheet.hairlineWidth,
-      borderRadius: 10,
-    },
   })
+    /*checkMultiple([PERMISSIONS.IOS.CAMERA, PERMISSIONS.IOS.FACE_ID]).then((statuses) => {
+      console.log('Camera', statuses[PERMISSIONS.IOS.CAMERA]);
+      console.log('FaceID', statuses[PERMISSIONS.IOS.FACE_ID]);
+      if(statuses[PERMISSIONS.IOS.CAMERA] && statuses[PERMISSIONS.IOS.FACE_ID])
+      {}
+      else
+      {
+        requestMultiple([PERMISSIONS.IOS.CAMERA, PERMISSIONS.IOS.FACE_ID]).then((statuses) => {
+          console.log('Camera', statuses[PERMISSIONS.IOS.CAMERA]);
+          console.log('FaceID', statuses[PERMISSIONS.IOS.FACE_ID]);
+        })
+      }
+    });*/
 
-export { Publish }
+  const handleChoosePhoto = () => {
+    launchImageLibrary({ noData: true }, (response) => {
+      // console.log(response);
+      if (response) {
+        setPhoto(response);
+      }
+    });
+  };
+
+  const handleUploadPhoto = () => {
+    fetch(`${SERVER_URL}/api/upload`, {
+      method: 'POST',
+      body: createFormData(photo, { userId: '123' }),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        console.log('response', response);
+      })
+      .catch((error) => {
+        console.log('error', error);
+      });
+  };
+
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      {photo && (
+        <>
+          <Image
+            source={{ uri: photo.uri }}
+            style={{ width: 300, height: 300 }}
+          />
+          <Button title="Upload Photo" onPress={handleUploadPhoto} />
+        </>
+      )}
+      <Button title="Choose Photo" onPress={handleChoosePhoto} />
+    </View>
+  );
+};
+
+export { Publish };
