@@ -5,7 +5,6 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { SideMenu } from "../components/SideMenu";
 
 import { AppStack } from "./StackNavigator";
-import { Home } from '../screens/home/home'
 
 
 const Drawer = createDrawerNavigator();

@@ -6,7 +6,7 @@ import { Publish } from '../screens/publish/publish'
 import { SideMenu } from '../components/SideMenu';
 import { NavigationContainer } from '@react-navigation/native';
 
-export const Routes = {
+const Routes = {
     //Stacks
     home: { name: 'home', key: 'myStackKey' },
     secondStack: { name: 'secondStack', key: 'secondStackKey' },
@@ -57,4 +57,4 @@ const AuthStack = () => {
 
 
 
-export { AppStack, AuthStack } 
+export { AppStack, AuthStack, Routes } 
