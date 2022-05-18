@@ -6,7 +6,7 @@ import { ImagePickerHeader } from '../../components/image-picker-header';
 import { ImagePickerModal } from '../../components/image-picker-modal';
 import { ImagePickerAvatar } from '../../components/image-picker-avatar';
 
-const SERVER_URL = 'http://localhost:3000';
+const SERVER_URL = 'http://192.168.32.38:3000';
 
 const createFormData = (uri ,photo, body = {}) => {
   const data = new FormData();
