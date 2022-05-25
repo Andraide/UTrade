@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>61110399362-uo4kqkl50dm9o4gu2k91hvn7e12pf61c.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.61110399362-uo4kqkl50dm9o4gu2k91hvn7e12pf61c</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDlB5diYqF0VsQXTflhYJE_3ffliqKWfFI</string>
+	<key>GCM_SENDER_ID</key>
+	<string>61110399362</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.borny</string>
+	<key>PROJECT_ID</key>
+	<string>borny-be778</string>
+	<key>STORAGE_BUCKET</key>
+	<string>borny-be778.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:61110399362:ios:a5ea758700e64478abdf9b</string>
+</dict>
+</plist>
