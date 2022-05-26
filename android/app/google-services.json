@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "61110399362",
+    "project_id": "borny-be778",
+    "storage_bucket": "borny-be778.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:61110399362:android:308d8b79cab16872abdf9b",
+        "android_client_info": {
+          "package_name": "com.borny"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "61110399362-deslqsa6fj7h09no181nea3orl7knrfh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.borny",
+            "certificate_hash": "35cadb7c45b54f5254599bedf8e34ba0748d5148"
+          }
+        },
+        {
+          "client_id": "61110399362-jrft1gnee3cnak8cpic530d8r8k80lor.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9v-eKni97d5jc9Tcfl0tThZRhlLuEsL4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "61110399362-jrft1gnee3cnak8cpic530d8r8k80lor.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "61110399362-uo4kqkl50dm9o4gu2k91hvn7e12pf61c.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.borny"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
