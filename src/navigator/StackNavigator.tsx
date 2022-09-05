@@ -2,6 +2,7 @@ import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack'
 import { NestedHome } from './Nesting';
 import { Login } from '../screens/login/login'
+import { PhoneSignIn } from '../screens/login/loginWithPhone';
 import { Publish } from '../screens/publish/publish'
 import { SideMenu } from '../components/SideMenu';
 import { NavigationContainer } from '@react-navigation/native';
@@ -14,6 +15,7 @@ const Routes = {
     
     //Screens
     login: { name: 'login' },
+    loginWithPhone: { name: 'loginWithPhone' },
     cameraPermissions: { name: 'cameraPermission' },
     notificationPermissions: { name: 'notificationPermissions' },
     locationPermissions: { name: 'locationPermissions' },
@@ -26,11 +28,11 @@ const LoginStack = createStackNavigator();
 const AppStack = () => {
     return (
       <HomeStack.Navigator
-              initialRouteName={Routes.login.name}
+              initialRouteName={Routes.loginWithPhone.name}
               headerMode={"none"}
             >
         <HomeStack.Group>
-          <HomeStack.Screen name={Routes.login.name} component={Login}/>
+          <HomeStack.Screen name={Routes.loginWithPhone.name} component={PhoneSignIn}/>
         </HomeStack.Group>
         <HomeStack.Group>
           <HomeStack.Screen name={Routes.home.name} component={NestedHome}/>
@@ -45,11 +47,11 @@ const AppStack = () => {
 const AuthStack = () => {
   return (
     <LoginStack.Navigator
-            initialRouteName={Routes.login.name}
+            initialRouteName={Routes.loginWithPhone.name}
             headerMode={"none"}
           >
       <LoginStack.Group>
-        <LoginStack.Screen name={Routes.login.name} component={Login}/>
+        <LoginStack.Screen name={Routes.loginWithPhone.name} component={PhoneSignIn}/>
       </LoginStack.Group>
     </LoginStack.Navigator>
   );
