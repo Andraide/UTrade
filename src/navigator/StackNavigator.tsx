@@ -29,10 +29,9 @@ const AppStack = () => {
     return (
       <HomeStack.Navigator
               initialRouteName={Routes.loginWithPhone.name}
-              headerMode={"none"}
             >
         <HomeStack.Group>
-          <HomeStack.Screen name={Routes.loginWithPhone.name} component={PhoneSignIn}/>
+          <HomeStack.Screen name={Routes.loginWithPhone.name} component={PhoneSignIn} options={{ headerShown: false }}/>
         </HomeStack.Group>
         <HomeStack.Group>
           <HomeStack.Screen name={Routes.home.name} component={NestedHome}/>

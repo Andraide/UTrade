@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, TextInput, View } from 'react-native';
-import auth from '@react-native-firebase/app';
+import auth from '@react-native-firebase/auth';
+
 
 function PhoneSignIn() {
   // If null, no SMS has been sent
@@ -10,6 +11,7 @@ function PhoneSignIn() {
 
   // Handle the button press
   async function signInWithPhoneNumber(phoneNumber) {
+    console.log("Sign in with phone number")
     const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
     setConfirm(confirmation);
   }
