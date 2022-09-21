@@ -3,6 +3,7 @@ import { View, Text, Platform, StatusBar, Dimensions, KeyBoardAvoidingView, Inpu
 import DeviceInfo from "react-native-device-info"
 import { useNavigation } from "@react-navigation/native";
 import { Formik } from 'formik'
+import auth from '@react-native-firebase/auth';
 
 const hasNotch = DeviceInfo.hasNotch()
 const heigthScreen = Dimensions.get('window').height
@@ -49,7 +50,24 @@ const Login = ({ navigation }) => {
         console.log("Status bar", StatusBar.currentHeight, heigthScreen)
     })
   
-      
+    async function authenticateWithEmail() {
+        auth()
+        .createUserWithEmailAndPassword('jane.doe@example.com', 'SuperSecretPassword!')
+        .then(() => {
+            console.log('User account created & signed in!');
+        })
+        .catch(error => {
+            if (error.code === 'auth/email-already-in-use') {
+            console.log('That email address is already in use!');
+            }
+
+            if (error.code === 'auth/invalid-email') {
+            console.log('That email address is invalid!');
+            }
+
+            console.error(error);
+        });
+    }
           
     return ( 
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: notch ? notchHeight : 0 }}>
@@ -57,8 +75,8 @@ const Login = ({ navigation }) => {
         validationSchema={loginValidationSchema}
         initialValues={{ email: '', password: '' }}
         onSubmit={values => {
-          console.log("Navigate")
-          navigation.navigate(Routes.home.name)
+          authenticateWithEmail()
+          //navigation.navigate(Routes.home.name)
         }}
       >
         {({

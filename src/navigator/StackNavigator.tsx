@@ -28,10 +28,10 @@ const LoginStack = createStackNavigator();
 const AppStack = () => {
     return (
       <HomeStack.Navigator
-              initialRouteName={Routes.loginWithPhone.name}
+              initialRouteName={Routes.login.name}
             >
         <HomeStack.Group>
-          <HomeStack.Screen name={Routes.loginWithPhone.name} component={PhoneSignIn} options={{ headerShown: false }}/>
+          <HomeStack.Screen name={Routes.login.name} component={Login} options={{ headerShown: false }}/>
         </HomeStack.Group>
         <HomeStack.Group>
           <HomeStack.Screen name={Routes.home.name} component={NestedHome}/>
