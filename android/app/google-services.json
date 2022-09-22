@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "61110399362-deslqsa6fj7h09no181nea3orl7knrfh.apps.googleusercontent.com",
+          "client_id": "61110399362-i23l9h8dn70dnh0fpeedlj44b4ahh1li.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.borny",
-            "certificate_hash": "35cadb7c45b54f5254599bedf8e34ba0748d5148"
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
           }
         },
         {
@@ -39,10 +39,10 @@
               "client_type": 3
             },
             {
-              "client_id": "61110399362-uo4kqkl50dm9o4gu2k91hvn7e12pf61c.apps.googleusercontent.com",
+              "client_id": "61110399362-s8s4ecvcpmgileri9t2m4kqf1bbbjifh.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.borny"
+                "bundle_id": "org.reactjs.native.example.Borny"
               }
             }
           ]

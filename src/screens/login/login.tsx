@@ -13,17 +13,13 @@ import { Routes } from "../../navigator/StackNavigator";
 
 const Login = ({ navigation }) => {
 
-    const [ notch, setNotch ] = useState(false)
-    const [ notchHeight, setNotchHeigth ] = useState(0)
+  const [ notch, setNotch ] = useState(false)
+  const [ notchHeight, setNotchHeigth ] = useState(0)
 
-    const loginValidationSchema = yup.object().shape({
-        email: yup
-          .string(),
-         
-        password: yup
-          .string()
-          
-      })
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState();
+
+  
     /*
      .email("Please enter valid email")
           .required('Email Address is Required'),
@@ -32,50 +28,85 @@ const Login = ({ navigation }) => {
    .min(8, ({ min }) => `Password must be at least ${min} characters`)
           .required('Password is required'),
    */
-      
-  
-    useEffect(() => {
-        
-        if(Platform.OS == 'ios' && hasNotch)
-        {
-            setNotch(true)
-            setNotchHeigth(heigthScreen/20)
-        }
-        else if(hasNotch)
-        {
-            setNotch(true)
-            setNotchHeigth(StatusBar.currentHeight)
-        }
+  async function onAuthStateChanged(user) {
+    console.log(user)
+    setUser(user);
+    const token = await auth().currentUser?.getIdToken();
+    console.log(token)
+    //if (initializing) setInitializing(false);
+  }
 
-        console.log("Status bar", StatusBar.currentHeight, heigthScreen)
+
+  
+  useEffect(() => {
+
+   if(Platform.OS == 'ios' && hasNotch)
+      {
+          setNotch(true)
+          setNotchHeigth(heigthScreen/20)
+      }
+      else if(hasNotch)
+      {
+          setNotch(true)
+          setNotchHeigth(StatusBar.currentHeight)
+      }
+
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, [])
+
+  async function signUpWithEmail() {
+    auth()
+    .createUserWithEmailAndPassword('t@t.com', 'tttttt')
+    .then(() => {
+        console.log('User account created & signed in!');
     })
-  
-    async function authenticateWithEmail() {
-        auth()
-        .createUserWithEmailAndPassword('jane.doe@example.com', 'SuperSecretPassword!')
-        .then(() => {
-            console.log('User account created & signed in!');
-        })
-        .catch(error => {
-            if (error.code === 'auth/email-already-in-use') {
-            console.log('That email address is already in use!');
-            }
+    .catch(error => {
+        if (error.code === 'auth/email-already-in-use') {
+        console.log('That email address is already in use!');
+        }
 
-            if (error.code === 'auth/invalid-email') {
-            console.log('That email address is invalid!');
-            }
+        if (error.code === 'auth/invalid-email') {
+        console.log('That email address is invalid!');
+        }
 
-            console.error(error);
-        });
-    }
-          
-    return ( 
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: notch ? notchHeight : 0 }}>
-        <Formik
+        console.error(error);
+    });
+  }
+
+  async function signInWithEmail(email: string, password: string) {
+    auth()
+    .signInWithEmailAndPassword(email, password)
+    .then((credentials) => {
+      console.log("Credentials", credentials)
+    })
+    .catch(error => {
+      console.log("Error signInWithEmail", error)
+    })
+  }
+
+  async function signOut() {
+    auth()
+    .signOut()
+    .then(() => console.log('User signed out'))
+  }
+
+  const loginValidationSchema = yup.object().shape({
+    email: yup
+      .string(),
+    password: yup
+      .string()
+  })
+        
+  return ( 
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: notch ? notchHeight : 0 }}>
+      <Formik
         validationSchema={loginValidationSchema}
         initialValues={{ email: '', password: '' }}
         onSubmit={values => {
-          authenticateWithEmail()
+          //signUpWithEmail()
+          const { email, password } = values
+          signInWithEmail(email, password)
           //navigation.navigate(Routes.home.name)
         }}
       >
@@ -120,9 +151,12 @@ const Login = ({ navigation }) => {
           </>
         )}
       </Formik>
-      </View>
-    
-    )
+      <Button
+        onPress={signOut}
+        title="SIGN OUT"
+      />
+    </View>
+  )
 }
 
 
