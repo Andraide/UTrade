@@ -29,9 +29,18 @@ const SideMenu = ({ navigation }) => {
     })
 
     return (
-            <View style={{ backgroundColor: 'blue', flex: 1, width: widthScreen/2, height: heigthScreen, marginTop: notch ? notchHeight : 0 }}>
-                <Text>Modal</Text>
-                <Button title="Publish" onPress={() => {navigation.navigate(Routes.publish.name)}}></Button>
+      
+            <View style={{ backgroundColor: 'white', flex: 1, height: heigthScreen, marginTop: notch ? notchHeight : 0, alignSelf: 'stretch' }}>
+                <View style={{ flex: 0.2, backgroundColor: 'grey' }}></View>
+                <View style={{ flex: 0.1, backgroundColor: 'blue', alignItems: 'center', justifyContent: 'center' }}>
+                  <Button title="Publish" onPress={() => {navigation.navigate(Routes.publish.name)}}></Button>
+                </View>
+                <View style={{ flex: 0.1, backgroundColor: 'blue', alignItems: 'center', justifyContent: 'center' }}>
+                  <Button title="Publish" onPress={() => {navigation.navigate(Routes.publish.name)}}></Button>
+                </View>
+                <View style={{ flex: 0.1, backgroundColor: 'blue', alignItems: 'center', justifyContent: 'center' }}>
+                  <Button title="Publish" onPress={() => {navigation.navigate(Routes.publish.name)}}></Button>
+                </View>
             </View>
     )
 }

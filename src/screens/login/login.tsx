@@ -40,12 +40,12 @@ const Login = ({ navigation }) => {
   
   useEffect(() => {
 
-   if(Platform.OS == 'ios' && hasNotch)
+   if(Platform.OS == 'ios')
       {
           setNotch(true)
           setNotchHeigth(heigthScreen/20)
       }
-      else if(hasNotch)
+      else
       {
           setNotch(true)
           setNotchHeigth(StatusBar.currentHeight)

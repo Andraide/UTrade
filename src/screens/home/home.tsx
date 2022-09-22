@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { View, Text, Platform, StatusBar, Dimensions, Image } from "react-native";
 import SearchBar from "react-native-dynamic-search-bar"
 import DeviceInfo from "react-native-device-info"
-import Icon from "../../assets/menu/icon.png"
+//import Icon from "../../assets/menu/icon.png"
+import Icon from "../../assets/icon.png"
 import { TouchableHighlight, TouchableOpacity } from "react-native-gesture-handler";
 import { SideMenu } from "../../components/SideMenu"
 const hasNotch = DeviceInfo.hasNotch()
@@ -31,8 +32,19 @@ const Home = ({ navigation }) => {
         //console.log("Status bar", StatusBar.currentHeight, heigthScreen)
     })
 
+    const homeMenus = () => {
+      let menus = ["Ganaderia", "Forestal", "Lecherias", "Agricola"]
+      return menus.map((menu) => {
+        return (
+          <View style={{ flex: 0.2, height: 100 }}>
+            <Text>{menu}</Text>
+          </View>
+        )
+      })
+    }
+
     return (
-            <View style={{ flex: 1, marginTop: notch ? notchHeight : 0 }}>
+            <View style={{ flex: 1, marginTop: notch ? notchHeight : 0, backgroundColor: 'white' }}>
                 <View style={{ flex: 0.1, flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'center' }}>
                     <View style={{ flex: 0.05 }}></View>
                     <View style={{ flex: 0.2, alignItems:'flex-start', justifyContent: 'center' }}>
@@ -55,6 +67,7 @@ const Home = ({ navigation }) => {
                 </View>
                 <View style={{ flex: 0.7, alignItems: 'center', justifyContent: 'center' }}>
                     <Text>Publications</Text>
+                    {homeMenus}
                 </View>
             </View>
     )

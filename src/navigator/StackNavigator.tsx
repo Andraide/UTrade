@@ -29,6 +29,9 @@ const AppStack = () => {
     return (
       <HomeStack.Navigator
               initialRouteName={Routes.loginWithPhone.name}
+              screenOptions={{
+                headerShown: false
+              }}
             >
         <HomeStack.Group>
           <HomeStack.Screen name={Routes.loginWithPhone.name} component={PhoneSignIn} options={{ headerShown: false }}/>
