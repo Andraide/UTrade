@@ -16,27 +16,10 @@ function PhoneSignIn() {
     setConfirm(confirmation);
   }
 
-  async function signInWithEmail() {
-    auth()
-    .createUserWithEmailAndPassword('jane.doe@example.com', 'SuperSecretPassword!')
-    .then(() => {
-      console.log('User account created & signed in!');
-    })
-    .catch(error => {
-      if (error.code === 'auth/email-already-in-use') {
-        console.log('That email address is already in use!');
-      }
-
-      if (error.code === 'auth/invalid-email') {
-        console.log('That email address is invalid!');
-      }
-
-      console.error(error);
-    });
-  }
 
   async function confirmCode() {
     try {
+      //setConfirm(null)
       await confirm.confirm(code);
     } catch (error) {
       console.log('Invalid code.');
@@ -48,7 +31,7 @@ function PhoneSignIn() {
         <View style={{ flex: 1, backgroundColor: 'red' }}>
             <Button
             title="Phone Number Sign In"
-            onPress={() => signInWithPhoneNumber('+1 650-555-3434')}
+            onPress={() => signInWithPhoneNumber('+1 650-555-1234')}
             />
         </View>
     );
