@@ -3,11 +3,13 @@ import { View, Text, Platform, StatusBar, Dimensions, Image } from "react-native
 import SearchBar from "react-native-dynamic-search-bar"
 import DeviceInfo from "react-native-device-info"
 //import Icon from "../../assets/menu/icon.png"
-import Icon from "../../assets/icon.png"
+import Icon from "../../assets/menu/menu-cuadrado.png"
 import { TouchableHighlight, TouchableOpacity } from "react-native-gesture-handler";
 import { SideMenu } from "../../components/SideMenu"
 const hasNotch = DeviceInfo.hasNotch()
 const heigthScreen = Dimensions.get('window').height
+
+let menus = ["Ganaderia", "Forestal", "Lecherias", "Agricola"]
 
 const Home = ({ navigation }) => {
 
@@ -32,16 +34,14 @@ const Home = ({ navigation }) => {
         //console.log("Status bar", StatusBar.currentHeight, heigthScreen)
     })
 
-    const homeMenus = () => {
-      let menus = ["Ganaderia", "Forestal", "Lecherias", "Agricola"]
-      return menus.map((menu) => {
+    const homeMenus =  menus.map((menu, i) => {
         return (
-          <View style={{ flex: 0.2, height: 100 }}>
+          <View key={i} style={{ flex: 0.2, height: 100 }}>
             <Text>{menu}</Text>
           </View>
         )
       })
-    }
+  
 
     return (
             <View style={{ flex: 1, marginTop: notch ? notchHeight : 0, backgroundColor: 'white' }}>
@@ -62,11 +62,7 @@ const Home = ({ navigation }) => {
                 <View style={{ flex: 0.1 }}>
                     <SearchBar/>
                 </View>
-                <View style={{ flex: 0.1, alignItems: 'center', justifyContent: 'center' }}>
-                    <Text>Select your pet</Text>
-                </View>
-                <View style={{ flex: 0.7, alignItems: 'center', justifyContent: 'center' }}>
-                    <Text>Publications</Text>
+                <View style={{ flex: 0.8, alignItems: 'center', justifyContent: 'center' }}>
                     {homeMenus}
                 </View>
             </View>
