@@ -6,14 +6,17 @@ import { ImagePickerHeader } from '../../components/image-picker-header';
 import { ImagePickerModal } from '../../components/image-picker-modal';
 import { ImagePickerAvatar } from '../../components/image-picker-avatar';
 
-const SERVER_URL = 'http://192.168.32.38:3000';
+//const SERVER_URL = 'http://192.168.186.38:3000';
+//const SERVER_URL = 'http://google.com';
+const SERVER_URL = 'http://192.168.186.38:3000'
 
 const createFormData = (uri ,photo, body = {}) => {
   const data = new FormData();
-
+  console.log(Object.keys(photo.assets))
+  console.log(photo.assets)
   data.append('photo', {
-    name: photo.fileName,
-    type: photo.type,
+    name: photo.assets[0].fileName,
+    type: photo.assets[0].type,
     uri: Platform.OS === 'ios' ? uri.replace('file://', '') : uri,
   });
 
@@ -25,17 +28,33 @@ const createFormData = (uri ,photo, body = {}) => {
 };
 
 const handleUploadPhoto = (uri, photo) => {
+  console.log("Fetching", `${SERVER_URL}/api/upload`)
   fetch(`${SERVER_URL}/api/upload`, {
     method: 'POST',
     body: createFormData(uri ,photo, { userId: '123' }),
   })
-    .then((response) => response.json())
+    .then((response) => console.log("res", response))
     .then((response) => {
       console.log('response', response);
     })
     .catch((error) => {
       console.log('error', error);
     });
+  /*
+  console.log("Fetching", `${SERVER_URL}/api/upload`)
+  fetch(`${SERVER_URL}`, {
+    method: 'GET',
+  })
+    .then((response) => console.log(response))
+    .then((response) => {
+      console.log('response', response);
+    })
+    .catch((error) => {
+      console.log('error', error);
+    });
+  */
+
+
 };
 
 const Publish = () => {
